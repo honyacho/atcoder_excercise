@@ -11,11 +11,10 @@ object Main {
       memo(n-1)(n)(1) = 0
     }
 
-    val res = dp(input, 0, input.length, memo)
-    println(res(1))
+    println(dp(input, 0, input.length, memo)(1))
   }
 
-  def dp(input: IndexedSeq[Long], left: Int, right: Int, memo: Array[Array[Array[Long]]]): Array[Long] = {
+  def dp(input: Array[Long], left: Int, right: Int, memo: Array[Array[Array[Long]]]): Array[Long] = {
     if (memo(left)(right)(0) != -1L) return memo(left)(right)
 
     var minCost = Long.MaxValue
