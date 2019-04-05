@@ -1,2 +1,5 @@
 a.out
 .vscode
+bin/
+lib/
+pyvenv.cfg
