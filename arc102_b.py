@@ -8,7 +8,6 @@ while incp:
         incp -= se
         sequ.append(se)
         se = se << 1
-        # print(incp)
     else:
         break
 
