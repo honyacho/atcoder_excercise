@@ -31,4 +31,4 @@ while queue:
             visited.add(node)
             queue += [[node, d + 1]]
 
-print('Second' if (d + 1) % 3 == 2 else 'First')
+print('Second' if d%3 == 1 else 'First')
