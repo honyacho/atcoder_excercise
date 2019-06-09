@@ -11,3 +11,5 @@ def LF(): return [float(x) for x in input().split()]
 def LS(): return input().split()
 def II(): return int(sys.stdin.readline())
 def SI(): return input()
+
+print(input().count('o')*100+700)

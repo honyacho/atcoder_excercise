@@ -11,3 +11,7 @@ def LF(): return [float(x) for x in input().split()]
 def LS(): return input().split()
 def II(): return int(sys.stdin.readline())
 def SI(): return input()
+
+N,A,B=LI()
+
+print(min(N*A,B))

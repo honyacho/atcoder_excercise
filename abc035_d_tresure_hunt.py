@@ -1,50 +1,49 @@
-from collections import deque
+import heapq
 N,M,T=map(int,input().split())
 SCRS=[0]+list(map(int,input().split()))
 
 inmap={}
-inmaprev={}
+inmap_rev={}
+prevs = [-1]*(N+1)
+prevs_rev = [-1]*(N+1)
+dist = [9223372036854775807]*(N+1)
+dist_rev = [9223372036854775807]*(N+1)
+dist[1] = 0
+dist_rev[1] = 0
+
 for _ in range(M):
     a,b,c=map(int,input().split())
     if not a in inmap:
-        inmap[a] = [(b,c)]
-    else:
-        inmap[a].append((b,c))
-    if not b in inmaprev:
-        inmaprev[b] = [(a,c)]
-    else:
-        inmaprev[b].append((a,c))
+        inmap[a] = []
+    if not b in inmap_rev:
+        inmap_rev[b] = []
+    inmap[a].append((b,c))
+    inmap_rev[b].append((a,c))
 
-que = deque([])
-visited1 = set([1])
-que.append(1)
-time1=[9223372036854775807 for i in range(N+1)]
-time1[1]=0
-while que:
-    check = que.popleft()
-    if check in inmap:
-        for (i, time) in inmap[check]:
-            time1[i] = min(time1[i], time + time1[check])
-            if not i in visited1:
-                visited1.add(i)
-                que.append(i)
+PQ = [(0, 1)]
+while PQ:
+    _, vf = heapq.heappop(PQ)
+    for vt, cost in inmap.get(vf, []):
+        new_dist = dist[vf] + cost
+        if new_dist < dist[vt]:
+            dist[vt] = new_dist
+            prevs[vt] = vf
+            heapq.heappush(PQ, (new_dist, vt))
 
-visited2 = set([1])
-time2=[9223372036854775807 for i in range(N+1)]
-time2[1]=0
-que.append(1)
-while que:
-    check = que.popleft()
-    if check in inmaprev:
-        for (i, time) in inmaprev[check]:
-            time2[i] = min(time2[i], time + time2[check])
-            if not i in visited2:
-                visited2.add(i)
-                que.append(i)
+PQ = [(0, 1)]
+while PQ:
+    _, vf = heapq.heappop(PQ)
+    for vt, cost in inmap_rev.get(vf, []):
+        new_dist = dist_rev[vf] + cost
+        if new_dist < dist_rev[vt]:
+            dist_rev[vt] = new_dist
+            prevs_rev[vt] = vf
+            heapq.heappush(PQ, (new_dist, vt))
 
-# print(time1)
-# print(time2)
+# print(dist)
+# print(dist_rev)
 
-res=0
-for i in range(1,N+1): res = max(res,(T-time1[i]-time2[i])*SCRS[i])
+res = 0
+for i in range(1, N+1):
+    res = max(res, SCRS[i]*(T-(dist[i]+dist_rev[i])))
 print(res)

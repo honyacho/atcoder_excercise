@@ -1,3 +1,5 @@
+import math
+
 import sys
 sys.setrecursionlimit(10**7)
 INTMAX = 9223372036854775807
@@ -11,3 +13,7 @@ def LF(): return [float(x) for x in input().split()]
 def LS(): return input().split()
 def II(): return int(sys.stdin.readline())
 def SI(): return input()
+
+a,b=LI()
+
+print(math.ceil((a+b)*0.5))

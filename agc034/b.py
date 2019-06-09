@@ -11,3 +11,17 @@ def LF(): return [float(x) for x in input().split()]
 def LS(): return input().split()
 def II(): return int(sys.stdin.readline())
 def SI(): return input()
+
+
+s = input().replace('BC', 'D')
+
+cnt = 0
+res = 0
+for i in range(len(s)):
+    if s[i] == 'A':
+        cnt += 1
+    elif s[i] == 'D':
+        res += cnt
+    else:
+        cnt = 0
+print(res)
