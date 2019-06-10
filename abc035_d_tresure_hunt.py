@@ -40,9 +40,6 @@ while PQ:
             prevs_rev[vt] = vf
             heapq.heappush(PQ, (new_dist, vt))
 
-# print(dist)
-# print(dist_rev)
-
 res = 0
 for i in range(1, N+1):
     res = max(res, SCRS[i]*(T-(dist[i]+dist_rev[i])))
