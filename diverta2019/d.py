@@ -1,38 +1,27 @@
-import sys
-sys.setrecursionlimit(10**7)
-INTMAX = 9223372036854775807
-INTMIN = -9223372036854775808
-MOD = 1000000007
-def POW(x, y): return pow(x, y, MOD)
-def INV(x, m=MOD): return pow(x, m - 2, m)
-def DIV(x, y, m=MOD): return (x * INV(y, m)) % m
 def LI(): return [int(x) for x in input().split()]
-def LF(): return [float(x) for x in input().split()]
-def LS(): return input().split()
 def II(): return int(input())
-
-
 N=II()
-GA,SA,BA=LI()
-GB,SB,BB=LI()
+RA=LI()
+RB=LI()
+GAIN1=[]
+GAIN2=[]
+for i in range(3):
+    if RA[i] < RB[i]:
+        GAIN1.append((RA[i], RB[i]-RA[i]))
+    if RA[i] > RB[i]:
+        GAIN2.append((RB[i], RA[i]-RB[i]))
 
-GM,SM,BM = max(GA,GB), max(SA,SB), max(BA,BB)
-Gm,Sm,Bm = min(GA,GB), min(SA,SB), min(BA,BB)
-
-res = N
+dp1 = [0]*(N+1)
 for i in range(N+1):
-    num_g = i//Gm
-    rest_g = i % Gm
-    for j in range(0, N-i+1):
-        k = N-j-i
+    for cost, gain in GAIN1:
+        if (i+cost) <= N:
+            dp1[i+cost] = max(dp1[i+cost],dp1[i]+gain)
 
-        num_s = j//Sm
-        rest_s = j % Sm
+M = dp1[N]+N
+dp2 = [0]*(M+1)
+for i in range(M+1):
+    for cost, gain in GAIN2:
+        if (i+cost) <= M:
+            dp2[i+cost] = max(dp2[i+cost],dp2[i]+gain)
 
-        num_b = k // Bm
-        rest_b = k % Bm
-
-        print('i:{},j:{},k:{} res:{}'.format(i,j,k, rest_g + rest_s + rest_b + num_g*GM + num_s*SM + num_b*BM))
-        res = max(res, rest_g + rest_s + rest_b + num_g*GM + num_s*SM + num_b*BM)
-
-print(res)
+print(M+dp2[M])
