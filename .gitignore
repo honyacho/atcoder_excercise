@@ -2,3 +2,5 @@ a.out
 .vscode
 .venv/
 .DS_Store
+*.cmi
+*.cmo
