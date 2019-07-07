@@ -8,21 +8,22 @@ let rep n f =
 let rep_from from until f =
     let rec repimpl i n = if i < n then (f i; repimpl (i+1) n) else () in repimpl from until;;
 
-let len = geti ();;
-let arr = 
-    let arr = Array.make len "" in
-    rep len (fun i -> arr.(i) <- read_line ());
-    arr;;
-
-module SetSt = Set.Make(String);;
-let st = ref SetSt.empty
+module MC = Map.Make(struct
+    type t = char
+    let compare = compare
+end);;
 
 let solve () =
-    rep len (fun i -> st := SetSt.add arr.(i) !st);
-    if SetSt.cardinal !st = len then begin
-        let res = ref true in
-        rep (len-1) (fun i -> res := !res && (Str.last_chars arr.(i) 1) = (Str.first_chars arr.(i+1) 1));
-        puts @@ if !res then "Yes" else "No";
-    end else puts "No";;
+    let str = read_line () in
+    let len = String.length str in
+    let mp = ref MC.empty in
+    rep len (fun i ->
+        let ch = (String.get str i) in
+        if not @@ MC.mem ch !mp then
+            mp := MC.add ch 0 !mp;
+        let cnt = MC.find ch !mp in
+        mp := MC.add ch (cnt) !mp
+    );
+    puts @@ if MC.cardinal !mp = 2 then "Yes" else "No";;
 
 solve ();;
