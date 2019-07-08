@@ -12,17 +12,23 @@ def LS(): return input().split()
 def II(): return int(input())
 
 N=II()
-INL=LI()
-INVN=1.0/N
-INVN_1 = 1-INVN
+Nd = float(N)
+N_inv = 1/N
+INIT = {1:0,2:0,3:0}
+for i in LI():
+    INIT[i] += 1
 
-DP=[[1,0,0,0] for _ in range(N+1)]
+DP=[[[-1.0]*(N+2) for i in range(N+2)] for j in range(N+2)]
+def solve(i, j, k):
+    if DP[i][j][k] >= 0: return DP[i][j][k]
+    if i+j+k == 0: return 0.0
+    res = 0.0
+    if i > 0: res += solve(i-1, j, k) * i
+    if j > 0: res += solve(i+1, j-1, k) * j
+    if k > 0: res += solve(i, j+1, k-1) * k
+    res += Nd
+    res *= 1.0 / (i + j + k)
+    DP[i][j][k] = res
+    return res
 
-res = 0
-for cnt in range(1, 100*N):
-
-    for i in range(N):
-        for j in reversed(range(1,3)):
-            DP[i][j] = (DP[i][j-1] - DP[i][j])*INVN + DP[i][j]
-        DP[i][0] = DP[i-1][0]*INVN_1
-
+print(solve(INIT[1],INIT[2],INIT[3]))
