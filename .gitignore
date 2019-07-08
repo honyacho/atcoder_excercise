@@ -5,3 +5,5 @@ a.out
 *.cmi
 *.cmo
 *.class
+*.cmx
+*.o

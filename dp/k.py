@@ -10,3 +10,15 @@ def LI(): return [int(x) for x in input().split()]
 def LF(): return [float(x) for x in input().split()]
 def LS(): return input().split()
 def II(): return int(input())
+
+N,K=LI()
+INL=LI()
+DP=[False]*(K+1)
+
+for i in range(0,K+1):
+    for v in INL:
+        if v+i <= K:
+            DP[v+i] = DP[v+i] or not DP[i]
+
+# print(DP)
+print('First' if DP[K] else 'Second')
