@@ -16,13 +16,17 @@ def FLIST(n):
     for i in range(1, n+1): res.append(res[i-1]*i%DVSR)
     return res
 
-X,Y=LI()
+N,T=LI()
+lis=[tuple(LI()) for i in range(N)]
+lis.sort()
+RES=[[0]*(T+1) for i in range(N+1)]
+for i in range(1, N+1):
+    A, B = lis[i-1]
+    for t in range(T):
+        if (t-A >= 0):
+            RES[i][t] = max(RES[i-1][t], RES[i-1][t-A]+B)
+        else:
+            RES[i][t] = RES[i-1][t]
+    RES[i][T] = max(RES[i-1][T], RES[i-1][T-1]+B)
 
-a = (2*X - Y) // 3
-b = (2*Y - X) // 3
-
-FACT = FLIST(1000000)
-if (2*X - Y)%3 == 0 and (2*Y - X)%3 == 0 and a >= 0 and b >= 0:
-    print(DIV(DIV(FACT[a+b], FACT[a]), FACT[b]))
-else:
-    print(0)
+print(RES[i][T])
