@@ -58,5 +58,4 @@ for i in range(0, len(cands)):
     if ok:
         prs.append(cands[i])
 
-# print(prs)
 print(len(prs)+ 1)
