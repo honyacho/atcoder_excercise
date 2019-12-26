@@ -24,7 +24,7 @@ def gcd(x, y):
         div = x % y
     return y
 def primes(n):
-    P=[2]
+    P = [2]
     for L in range(3, n):
         isP = True
         for L2 in P:
@@ -32,3 +32,17 @@ def primes(n):
             if not isP: break
         if isP: P.append(L)
     return P
+
+N,K=LI()
+num_red = N-K
+FACT=FLIST(4000)
+
+for i in range(1, K+1):
+    num_barr = i-1
+    if num_barr > num_red or i > K:
+        print(0)
+    else:
+        pat_blue = (((FACT[K+num_barr-i] * INV(FACT[num_barr])) % DVSR) * INV(FACT[K-i])) % DVSR
+        pat_red = ((FACT[num_red+1] * INV(FACT[num_barr+1]) % DVSR) * INV(FACT[num_red - num_barr])) % DVSR
+        # print("pat_blue {}, pat_red {}".format(pat_blue, pat_red))
+        print(pat_red*pat_blue%DVSR)

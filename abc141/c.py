@@ -16,19 +16,11 @@ def FLIST(n):
     res = [1]
     for i in range(1, n+1): res.append(res[i-1]*i%DVSR)
     return res
-def gcd(x, y):
-    if x < y: x, y = y, x
-    div = x % y
-    while div != 0:
-        x, y = y, div
-        div = x % y
-    return y
-def primes(n):
-    P=[2]
-    for L in range(3, n):
-        isP = True
-        for L2 in P:
-            isP = isP and L%L2
-            if not isP: break
-        if isP: P.append(L)
-    return P
+
+
+N,K,Q=LI()
+
+RES=[K-Q]*N
+for i in range(Q): RES[II()-1] += 1
+for v in RES:
+    print('Yes' if v > 0 else 'No')

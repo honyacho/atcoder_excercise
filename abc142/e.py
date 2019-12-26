@@ -24,11 +24,13 @@ def gcd(x, y):
         div = x % y
     return y
 def primes(n):
-    P=[2]
-    for L in range(3, n):
+    P = [2]
+    for L in range(3, n, 2):
         isP = True
         for L2 in P:
             isP = isP and L%L2
             if not isP: break
         if isP: P.append(L)
     return P
+
+print(len(primes(II())))
