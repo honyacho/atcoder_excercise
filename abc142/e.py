@@ -23,14 +23,19 @@ def gcd(x, y):
         x, y = y, div
         div = x % y
     return y
-def primes(n):
-    P = [2]
-    for L in range(3, n, 2):
-        isP = True
-        for L2 in P:
-            isP = isP and L%L2
-            if not isP: break
-        if isP: P.append(L)
-    return P
 
-print(len(primes(II())))
+N,M=LI()
+LE = 1 << N
+DP = [10**15]*(LE)
+DP[0] = 0
+
+for _ in range(M):
+    a,b=LI()
+    key = 0
+    for i in LI():
+        key |= 1<<(i-1)
+    for j in range(LE):
+        DP[j | key] = min(DP[j | key], DP[j] + a)
+
+res = DP[(1 << N) - 1]
+print(res if res != 10**15 else -1)
