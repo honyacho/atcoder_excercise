@@ -20,10 +20,8 @@ template <typename T> T modpow(T base, T exp, T modulus) {
   return result;
 }
 
-
 ll modpow(ll x, ll n) {
   ll res = 1;
-
   while (n > 0) {
     if (n&1) res = res*x%DVSR;
     x = x*x%DVSR;
