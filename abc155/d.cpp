@@ -25,42 +25,25 @@ int main(int argc, char const *argv[])
   ll MM = *(LI.end() - 1);
   ll hi = max(MM*MM, mm*mm)+1;
   ll lo = min(min(mm*mm, MM*mm), MM*MM);
+  ll value_mid = 0;
   while (hi != lo) {
-    ll value_mid = (hi + lo)/2;
     ll cnt = 0;
+    value_mid = (hi + lo)/2;
     REP(i, N-1) {
-      // 正の場合
-      if (LI[i] >= 0) {
-        ll hhi = N, llo = i+1;
-        while (hhi != llo) {
-          ll mmid = (hhi + llo)/2;
-          // left
-          if (LI[i]*LI[mmid] < value_mid) {
-            llo = mmid + 1;
-          } else {
-            hhi = mmid;
-          }
+      ll llo = 0, hhi = N-1-i;
+      ll mmid = 0;
+      while (hhi != llo) {
+        mmid = (hhi + llo)/2;
+        if (LI[i]*(LI[i] >= 0 ? LI[i+1+mmid] : LI[N-1-mmid]) < value_mid) {
+          llo = mmid + 1;
+        } else {
+          hhi = mmid;
         }
-        cnt += (llo-(i+1));
-      } else { // LI[i] 負の場合
-        ll llo = 0, hhi = N-1-i;
-        while (hhi != llo) {
-          ll mmid = (hhi + llo)/2;
-          // left
-          if (LI[i]*LI[N-1-mmid] < value_mid) {
-            llo = mmid+1;
-          } else {
-            hhi = mmid;
-          }
-        }
-        cnt += llo;
       }
+      cnt += llo;
     }
-    if (cnt < K) {
-      lo = value_mid + 1;
-    } else {
-      hi = value_mid;
-    }
+    if (cnt < K) lo = value_mid + 1;
+    else hi = value_mid;
   }
   cout << lo-1 << endl;
   return 0;
