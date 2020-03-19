@@ -34,5 +34,5 @@ else:
     cur %= P
     res += RESTS[cur]
     RESTS[cur] += 1
-  print(res)  
+  print(res)
 
