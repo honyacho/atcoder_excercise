@@ -26,25 +26,46 @@ int main(int argc, char const *argv[])
   ll hi = max(MM*MM, mm*mm)+1;
   ll lo = min(min(mm*mm, MM*mm), MM*MM);
   ll value_mid = 0;
+  int zeroIdx = lower_bound(LI.begin(), LI.end(), 0LL) - LI.begin();
   while (hi != lo) {
-    ll cnt = 0;
-    value_mid = lo+ (hi - lo)/2;
-    REP(i, N-1) {
-      ll llo = 0, hhi = N-1-i;
-      ll mmid = 0;
-      while (hhi != llo) {
-        mmid = (hhi + llo)/2;
-        if (LI[i]*(LI[i] >= 0 ? LI[i+1+mmid] : LI[N-1-mmid]) < value_mid) {
-          llo = mmid + 1;
-        } else {
-          hhi = mmid;
-        }
+    value_mid = lo + (hi - lo)/2;    
+    ll cnt = 0, lft = 0, rgt = zeroIdx;
+    // --
+    while (lft < rgt) {
+      if (LI[lft]*LI[rgt-1] < value_mid) {
+        cnt += rgt - lft - 1;
+        rgt -= 1;
+      } else {
+        lft += 1;
       }
-      cnt += llo;
+    }
+
+    // -+
+    lft = 0;
+    rgt = zeroIdx+1;
+    while (rgt <= N && LI[lft] < 0 && LI[rgt-1] >= 0) {
+      if (LI[lft]*LI[rgt-1] < value_mid) {
+        cnt += N - rgt + 1;
+        lft += 1;
+      } else {
+        rgt += 1;
+      }
+    }
+
+    // ++
+    lft = zeroIdx;
+    rgt = N;
+    while (lft < rgt) {
+      if (LI[lft]*LI[rgt-1] < value_mid) {
+        cnt += rgt - lft - 1;
+        lft += 1;
+      } else {
+        rgt -= 1;
+      }
     }
     if (cnt < K) lo = value_mid + 1;
     else hi = value_mid;
   }
-  cout << lo-1 << endl;
+  std::cout << (lo-1) << endl;
   return 0;
 }
