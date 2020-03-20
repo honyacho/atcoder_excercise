@@ -21,24 +21,18 @@ int main(int argc, char const *argv[])
   vecll LI(N);
   REP(i, N) cin >> LI[i];
   sort(LI.begin(), LI.end());
-  ll mm = *LI.begin();
-  ll MM = *(LI.end() - 1);
-  ll hi = max(MM*MM, mm*mm)+1;
-  ll lo = min(min(mm*mm, MM*mm), MM*MM);
+  ll hi = 1000000000000000000;
+  ll lo = -1000000000000000000;
   ll value_mid = 0;
   while (hi != lo) {
     ll cnt = 0;
     value_mid = lo + (hi - lo)/2;
     REP(i, N-1) {
-      ll llo = 0, hhi = N-1-i;
-      ll mmid = 0;
+      ll llo = 0, hhi = N-1-i, mmid = 0;
       while (hhi != llo) {
         mmid = (hhi + llo)/2;
-        if (LI[i]*(LI[i] >= 0 ? LI[i+1+mmid] : LI[N-1-mmid]) < value_mid) {
-          llo = mmid + 1;
-        } else {
-          hhi = mmid;
-        }
+        if (LI[i]*(LI[i] >= 0 ? LI[i+1+mmid] : LI[N-1-mmid]) < value_mid) llo = mmid + 1;
+        else hhi = mmid;
       }
       cnt += llo;
     }
