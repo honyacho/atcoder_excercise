@@ -28,7 +28,7 @@ int main(int argc, char const *argv[])
   ll value_mid = 0;
   while (hi != lo) {
     ll cnt = 0;
-    value_mid = lo+ (hi - lo)/2;
+    value_mid = lo + (hi - lo)/2;
     REP(i, N-1) {
       ll llo = 0, hhi = N-1-i;
       ll mmid = 0;
