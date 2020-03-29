@@ -17,60 +17,9 @@ template<typename T> T mod_inv(T x, const T &p) { return mod_pow(x, p-2, p); }
 const ll DVSR = 1e9+7;
 
 
-
 int main(int argc, char const *argv[])
 {
-  ll H,W,K; cin >> H >> W >> K;
-  vector<int> MP(1000);
-  string line;
-  vector<int> ACC(H);
-  vector<int> CURR(H);
-
-  REP(i, 1000) MP[i] = 0;
-  REP(j, H) {
-    cin >> line;
-    REP(i, W) {
-      if (line[i] == '1') {
-        MP[i] |= (1 << j);
-      }
-    }
-  }
-
-  int res = H*W;
-  REP(k, 1 << (H-1)) {
-    int cnt_brr = 0;
-    REP(i, H) {
-      ACC[i] = 0;
-      CURR[i] = 0;
-    }
-    REP(i, 10) cnt_brr += (k >> i) & 1;
-    REP(j, W) {
-      REP(i, H) CURR[i] = 0;
-      int part = 0, i = 0, bound = 1;
-      bool isBarrier = false;
-      while (bound <= H) {
-        while (!(k & (1 << (bound-1))) && bound < H) bound++;
-        while (i < bound) {
-          CURR[part] += 1 & (MP[j] >> i);
-          i++;
-        }
-        isBarrier = isBarrier || CURR[part]+ACC[part] > K;
-        part++;
-        bound++;
-      }
-      REP(i, H) if (CURR[i] > K) {
-        cnt_brr = H*W;
-        break;
-      }
-      if (isBarrier) {
-        REP(i, H) ACC[i] = CURR[i];
-        cnt_brr++;
-      } else {
-        REP(i, H) ACC[i] += CURR[i];
-      }
-    }
-    res = min(res, cnt_brr);
-  }
-  cout << res << endl;
+  string S; cin >> S;
+  cout << (S[2] == S[3] && S[4] == S[5] ? "Yes" : "No") << endl;
   return 0;
 }
