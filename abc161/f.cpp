@@ -30,8 +30,7 @@ bool ok(ll N, ll K) {
 int main(int argc, char const *argv[])
 {
   ll N; cin >> N;
-  ll NN = N-1;
-  ll cnt = 2;
+  ll NN = N-1, cnt = 2;
   if (N == 2) {
     cout << 1 << endl;
     return 0;
@@ -39,19 +38,11 @@ int main(int argc, char const *argv[])
   ll upper = sqrt(NN)+1;
   for (ll i = 2; i < upper; i++) {
     if (NN%i == 0) {
-      // cout << i << " " << NN/i << endl;
-      if (i*i != NN) {
-        cnt += 2;
-      } else cnt += 1;
+      if (i*i != NN) cnt += 2;
+      else cnt += 1;
     }
   }
-  // cout << "ok" << endl;
-  RNG(i, 2, sqrt(N)+1) {
-    if (N%i != 1 && ok(N, i)) {
-      // cout << i << endl;
-      cnt++;
-    }
-  }
+  RNG(i, 2, sqrt(N)+1) if (N%i != 1 && ok(N, i)) cnt++;
   cout << cnt << endl;
   return 0;
 }
