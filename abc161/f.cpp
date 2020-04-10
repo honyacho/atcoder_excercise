@@ -16,15 +16,13 @@ template<typename T> T mod_pow(T x, T n, const T &p) { T ret = 1; while(n > 0) {
 template<typename T> T mod_inv(T x, const T &p) { return mod_pow(x, p-2, p); }
 const ll DVSR = 1e9+7;
 
-bool ok(ll N, ll K) {
+bool ok(ll N, ll K)
+{
   if (N == 1) return true;
-  if (N % K == 1) {
-    return true;
-  } else if (N % K == 0) {
-    return ok(N/K, K);
-  } else {
-    return false;
-  }
+
+  if (N % K == 1) return true;
+  else if (N % K == 0) return ok(N/K, K);
+  else return false;
 }
 
 int main(int argc, char const *argv[])
