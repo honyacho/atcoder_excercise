@@ -19,23 +19,17 @@ const ll DVSR = 1e9+7;
 
 int main(int argc, char const *argv[])
 {
-  ll N, K, C; cin >> N >> K >> C;
+  ll N, K, C, cur = 0, br = 2000000000; cin >> N >> K >> C;
   string S; cin >> S;
   vecll work(K), work2(K);
-  ll cur = 0, br = 2000000000;
-  REP(i, N) {
-    if (cur < K) {
-      if (br >= C && S[i] == 'o') {
-        work[cur] = i;
-        cur++;
-        br = 0;
-      } else {
-        br++;
-      }
-    } else {
-      break;
-    }
-  }
+  REP(i, N) if (cur < K) {
+    if (br >= C && S[i] == 'o') {
+      work[cur] = i;
+      cur++;
+      br = 0;
+    } else br++;
+  } else break;
+
   cur = 0;
   br = 2000000000;
   REP(i, N) {
@@ -45,12 +39,8 @@ int main(int argc, char const *argv[])
         work2[K-cur-1] = j;
         cur++;
         br = 0;
-      } else {
-        br++;
-      }
-    } else {
-      break;
-    }
+      } else br++;
+    } else break;
   }
   REP(i, K) if (work[i] == work2[i]) cout << work[i]+1 << endl;
   return 0;
