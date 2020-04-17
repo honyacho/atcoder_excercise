@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define REP(i,n) for(ll i=0; i<(ll)(n); i++)
-#define RNG(i,from,to) for(ll i=(from); i<(ll)(to); i++)
+#define REP(i,n) for(int i=0; i<(int)(n); i++)
+#define RNG(i,from,to) for(int i=(from); i<(int)(to); i++)
 #define gcd(i,j) __gcd((i), (j))
 typedef long long ll;
 typedef pair<int, int> pii;
@@ -19,5 +19,14 @@ const ll DVSR = 1e9+7;
 
 int main(int argc, char const *argv[])
 {
+  ll K, res = 0; cin >> K;
+  RNG(i, 1, K+1) {
+    RNG(j, 1, K+1) {
+      RNG(k, 1, K+1) {
+        res += gcd(gcd(i,j), k);
+      }
+    }
+  }
+  cout << res << endl;
   return 0;
 }
