@@ -1,7 +1,7 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define REP(i,n) for(ll i=0; i<(ll)(n); i++)
-#define RNG(i,from,to) for(ll i=(from); i<(ll)(to); i++)
+#define REP(i,n) for(int i=0; i<(int)(n); i++)
+#define RNG(i,from,to) for(int i=(from); i<(int)(to); i++)
 #define gcd(i,j) __gcd((i), (j))
 typedef long long ll;
 typedef pair<int, int> pii;
@@ -19,19 +19,22 @@ const ll DVSR = 1e9+7;
 
 int main(int argc, char const *argv[])
 {
-  ll N; cin >> N;
-  vecll As(N);
-  REP(i, N) cin >> As[i];
-  if (N % 2 == 0) {
-    ll a = 0, b = 0;
-    for (int i = 0; i < N; i += 2) a += As[i];
-    for (int i = 1; i < N; i += 2) b += As[i];
-    cout << max(a,b) << endl;
-  } else {
-    ll OS = 0, ES = 0;
-    for (int i = 0; i < N; i += 2) OS += As[i];
-    for (int i = 1; i < N; i += 2) ES += As[i];
-
+  ll N, K, res = 0; cin >> N >> K;
+  ll m = 0, M = N, mSUM = 0, MSUM = 0;
+  REP(i, K) {
+    mSUM += m;
+    MSUM += M;
+    m++;
+    M--;
   }
+  RNG(i, K-1, N+1) {
+    res += MSUM-mSUM+1;
+    res %= DVSR;
+    mSUM += m;
+    MSUM += M;
+    m++;
+    M--;
+  }
+  cout << res << endl;
   return 0;
 }
