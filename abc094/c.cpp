@@ -18,5 +18,23 @@ const ll DVSR = 1e9+7;
 
 int main(int argc, char const *argv[])
 {
+  ll N; cin >> N;
+  vecll V(N), OR(N);
+  REP(i, N) {
+    cin >> V[i];
+    OR[i] = V[i];
+  }
+  sort(V.begin(), V.end());
+  ll m1 = V[(N/2) - 1];
+  ll m2 = V[N/2];
+  REP(i, N) {
+    ll res = 0;
+    if (OR[i] <= m1) {
+      res = m2;
+    } else {
+      res = m1;
+    }
+    cout << res << endl;
+  }
   return 0;
 }

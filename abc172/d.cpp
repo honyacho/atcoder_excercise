@@ -18,5 +18,11 @@ const ll DVSR = 1e9+7;
 
 int main(int argc, char const *argv[])
 {
+  ll N, res = 0; cin >> N;
+  RNG(i, 1, N+1) {
+    ll n = N/i;
+    res += i*n*(n+1)/2;
+  }
+  cout << res << endl;
   return 0;
 }
