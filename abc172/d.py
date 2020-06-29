@@ -21,6 +21,6 @@ N = II()
 res = 0
 for i in range(1, N+1):
     n = N//i
-    res += i*n*(n+1)//2
+    res += i*n*(n+1) >> 1
 
 print(res)
