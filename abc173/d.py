@@ -12,17 +12,21 @@ def LI(): return [int(x) for x in sys.stdin.readline().split()]
 def LF(): return [float(x) for x in sys.stdin.readline().split()]
 def LS(): return sys.stdin.readline().split()
 def II(): return int(sys.stdin.readline())
+
+
 def FLIST(n):
     res = [1]
-    for i in range(1, n+1): res.append(res[i-1]*i%DVSR)
+    for i in range(1, n+1):
+        res.append(res[i-1]*i % DVSR)
     return res
 
-N=II()
-AS=LI()
+
+N = II()
+AS = LI()
 AS.sort(reverse=True)
 
 i, j = AS[0], AS[1]
-HQ=[]
+HQ = []
 heapq.heappush(HQ, (-i, -j))
 heapq.heappush(HQ, (-i, -j))
 res = AS[0]
