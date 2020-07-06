@@ -20,13 +20,11 @@ def FLIST(n):
 N=II()
 AS=LI()
 AS.sort(reverse=True)
-# print(AS)
 
 i, j = AS[0], AS[1]
 HQ=[]
 heapq.heappush(HQ, (-i, -j))
 heapq.heappush(HQ, (-i, -j))
-# print(HQ)
 res = AS[0]
 for n in range(2, len(AS)):
     k = AS[n]
@@ -36,7 +34,5 @@ for n in range(2, len(AS)):
     res += min(i, j)
     heapq.heappush(HQ, (-k, -i))
     heapq.heappush(HQ, (-k, -j))
-    # print("i: {} j: {} k:{} res:{}".format(i,j,k,res))
-    # print(HQ)
 
 print(res)

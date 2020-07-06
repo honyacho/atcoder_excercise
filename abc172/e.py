@@ -8,16 +8,55 @@ DVSR = 1000000007
 def POW(x, y): return pow(x, y, DVSR)
 def INV(x, m=DVSR): return pow(x, m - 2, m)
 def DIV(x, y, m=DVSR): return (x * INV(y, m)) % m
-def LI(): return [int(x) for x in sys.stdin.readline().split()]
+def LI(): return map(int, sys.stdin.readline().split())
 def LF(): return [float(x) for x in sys.stdin.readline().split()]
 def LS(): return sys.stdin.readline().split()
 def II(): return int(sys.stdin.readline())
+
+
 def FLIST(n):
     res = [1]
-    for i in range(1, n+1): res.append(res[i-1]*i%DVSR)
+    for i in range(1, n+1):
+        res.append(res[i-1]*i % DVSR)
     return res
 
-N,M=LI()
 
-for i in range(1, 1+N):
-    print("")
+N, M = LI()
+FACT = FLIST(M)
+
+
+def NCR(n, r):
+    res = FACT[n-r]
+    res *= FACT[r]
+    res %= DVSR
+    res = INV(res)
+    res *= FACT[n]
+    res %= DVSR
+    return res
+
+
+def NPR(n, r):
+    res = FACT[n]*INV(FACT[n-r])
+    res %= DVSR
+    return res
+
+
+ALL = NPR(M, N)
+ALL %= DVSR
+ALL *= ALL
+ALL %= DVSR
+
+
+PAT = 0
+for i in reversed(range(1, N+1)):
+    v = NCR(N, i)
+    v *= NPR(M, i)
+    v %= DVSR
+    v *= NPR(M-i, N-i)
+    v %= DVSR
+    v *= NPR(M-i, N-i)
+    v %= DVSR
+    PAT = v - PAT
+    PAT %= DVSR
+
+print((ALL - PAT) % DVSR)
