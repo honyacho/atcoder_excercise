@@ -12,31 +12,37 @@ def LI(): return [int(x) for x in sys.stdin.readline().split()]
 def LF(): return [float(x) for x in sys.stdin.readline().split()]
 def LS(): return sys.stdin.readline().split()
 def II(): return int(sys.stdin.readline())
+
+
 def FLIST(n):
     res = [1]
-    for i in range(1, n+1): res.append(res[i-1]*i%DVSR)
+    for i in range(1, n+1):
+        res.append(res[i-1]*i % DVSR)
     return res
 
-N=II()
-AS=LI()
-DP=[[0,0,-10**18,-10**18,-10**18,-10**18] for i in range(N+1)]
 
+N = II()
+AS = LI()
+DP = {}
+DP[(0, 0)] = 0
+
+mm = -(10**18)
 for i in range(N):
-    # 使った場合(2つ空けなし)
-    DP[i+1][0] = DP[i][1]+AS[i]
-    # 使わなかった場合(2つ空けなし)
-    DP[i+1][1] = DP[i][0]
-    # 使った場合(2つ空けあり)
-    DP[i+1][2] = DP[i][3]+AS[i]
-    # 使わなかった場合(2つ空けあり)
-    DP[i+1][3] = max(DP[i][2], DP[i][1])
+    NX = {}
+    for ((cnt, isUsed), value) in DP.items():
+        if isUsed:
+            if cnt >= (i // 2 - 5):
+                NX[(cnt, 0)] = max(value, NX.get((cnt, 0)) or mm)
+        else:
+            if cnt >= (i // 2 - 5):
+                NX[(cnt, 0)] = max(value, NX.get((cnt, 0)) or mm)
+            if cnt >= (i // 2 - 5):
+                NX[(cnt+1, 1)] = max(value + AS[i],
+                                     NX.get((cnt+1, 1)) or mm)
+    DP = NX
 
-if N%2 == 0:
-    print(max(DP[N][0], DP[N][1]))
-else:
-    SML=sum(AS[::2])
-    MX=-10**18
-    for i in AS[::2]:
-        MX=max(MX, SML-i)
-    print(MX, SML)
-    print(max(DP[N][1], DP[N][2], DP[N][3], MX))
+res = -(10**18)
+for ((cnt, _), value) in DP.items():
+    if cnt == N//2:
+        res = max(res, value)
+print(res)
