@@ -11,8 +11,8 @@ DVSR = 1000000007
 def POW(x, y): return pow(x, y, DVSR)
 def INV(x, m=DVSR): return pow(x, m - 2, m)
 def DIV(x, y, m=DVSR): return (x * INV(y, m)) % m
-def LI(): return [int(x) for x in sys.stdin.readline().split()]
-def LF(): return [float(x) for x in sys.stdin.readline().split()]
+def LI(): return map(int, sys.stdin.readline().split())
+def LF(): return map(float, sys.stdin.readline().split())
 def LS(): return sys.stdin.readline().split()
 def II(): return int(sys.stdin.readline())
 def FLIST(n):
@@ -22,17 +22,14 @@ def FLIST(n):
 
 
 def main():
-    X, Y, A, B = LI()
-    cnt = 0
-    while X*A <= B and X*A < Y:
-        cnt += 1
-        X *= A
+    N = II()
+    res = 0
+    for i in range(1, N):
+        if N % i:
+            res += N // i
+        else:
+            res += N // i - 1
+    print(res)
 
 
-    if (Y - A*X) > 0:
-        cnt = cnt + max((Y - X) // B - (not (Y - X) % B), 1 + (Y - A*X) // B - (not (Y - A*X) % B))
-    else:
-        cnt = cnt + ((Y - X) // B) - (not (Y - X) % B)
-
-    print(cnt)
 main()

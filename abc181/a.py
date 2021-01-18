@@ -20,19 +20,4 @@ def FLIST(n):
     for i in range(1, n+1): res.append(res[i-1]*i%DVSR)
     return res
 
-
-def main():
-    X, Y, A, B = LI()
-    cnt = 0
-    while X*A <= B and X*A < Y:
-        cnt += 1
-        X *= A
-
-
-    if (Y - A*X) > 0:
-        cnt = cnt + max((Y - X) // B - (not (Y - X) % B), 1 + (Y - A*X) // B - (not (Y - A*X) % B))
-    else:
-        cnt = cnt + ((Y - X) // B) - (not (Y - X) % B)
-
-    print(cnt)
-main()
+print("Black" if II() % 2 else "White")
